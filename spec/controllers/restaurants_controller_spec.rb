@@ -42,9 +42,15 @@ RSpec.describe RestaurantsController, type: :controller do
   let(:valid_session) { {} }
 
   describe "GET #index" do
+    let!(:restaurant) { Restaurant.create! valid_attributes }
+
     it "returns a success response" do
-      restaurant = Restaurant.create! valid_attributes
       get :index, params: {}, session: valid_session
+      expect(response).to be_success
+    end
+
+    it "accepts q param" do
+      get :index, params: { q: 'restaurant' }, session: valid_session
       expect(response).to be_success
     end
   end
