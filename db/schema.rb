@@ -10,11 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170605091317) do
+ActiveRecord::Schema.define(version: 20170606030221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "citext"
+
+  create_table "dishes", force: :cascade do |t|
+    t.bigint "restaurant_id", null: false
+    t.citext "name", null: false
+    t.decimal "price", precision: 8, scale: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_dishes_on_name"
+    t.index ["restaurant_id"], name: "index_dishes_on_restaurant_id"
+  end
 
   create_table "restaurants", force: :cascade do |t|
     t.citext "name", null: false
@@ -23,4 +33,5 @@ ActiveRecord::Schema.define(version: 20170605091317) do
     t.index ["name"], name: "index_restaurants_on_name"
   end
 
+  add_foreign_key "dishes", "restaurants"
 end
