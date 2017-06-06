@@ -96,4 +96,13 @@ RSpec.describe "Restaurants", type: :request do
       end
     end
   end
+
+  describe "DELETE #destroy" do
+    it "destroys the requested restaurant" do
+      restaurant = Restaurant.create! valid_attributes
+      expect {
+        delete restaurant_path(restaurant)
+      }.to change(Restaurant, :count).by(-1)
+    end
+  end
 end
