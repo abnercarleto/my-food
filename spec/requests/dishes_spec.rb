@@ -24,7 +24,7 @@ RSpec.describe "Dishes", type: :request do
       dish = Dish.create! valid_attributes
       get dishes_path
       expect(response).to be_success
-      expect(response.body).to eq Dish.all.to_json
+      expect(response.body).to eq Dish.all.as_json(include: :restaurant).to_json
     end
   end
 
@@ -33,7 +33,7 @@ RSpec.describe "Dishes", type: :request do
       dish = Dish.create! valid_attributes
       get dish_path(dish)
       expect(response).to be_success
-      expect(response.body).to eq dish.to_json
+      expect(response.body).to eq dish.as_json(include: :restaurant).to_json
     end
   end
 

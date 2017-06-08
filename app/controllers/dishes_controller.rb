@@ -5,12 +5,12 @@ class DishesController < ApplicationController
   def index
     @dishes = Dish.all
 
-    render json: @dishes
+    render json: @dishes.as_json(include: :restaurant)
   end
 
   # GET /dishes/1
   def show
-    render json: @dish
+    render json: @dish.as_json(include: :restaurant)
   end
 
   # POST /dishes
